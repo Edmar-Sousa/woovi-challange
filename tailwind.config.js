@@ -23,6 +23,10 @@ export default {
         blue: {
           300: '#133A6F',
         }
+      },
+
+      fontFamily: {
+        nunito: ['Nunito']
       }
     },
   },
