@@ -37,3 +37,27 @@
     font-weight: 900;
     src: url('./fonts/nunito/Nunito-ExtraBold.ttf') format('truetype');
 }
+
+
+input[type="radio"] {
+    appearance: none;
+    border-radius: 100%;
+    position: relative;
+}
+
+input[type="radio"]:checked::after {
+    content: "";
+    display: block;
+
+    width: 60%;
+    height: 60%;
+
+    background-image: url('/check.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    position: absolute;
+    top: 20%;
+    left: 20%;
+}
