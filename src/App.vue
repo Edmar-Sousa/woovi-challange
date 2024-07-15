@@ -1,13 +1,13 @@
 <template>
 
     <div class="w-screen min-h-screen">
-        <payment-method />
+        <payment-pix-qrcode />
     </div>
 
 </template>
 
 <script setup lang="ts">
 
-import PaymentMethod from '@/Pages/PaymentMethod.vue'
+import PaymentPixQrcode from '@/Pages/PaymentPixQrcode.vue'
 
 </script>
