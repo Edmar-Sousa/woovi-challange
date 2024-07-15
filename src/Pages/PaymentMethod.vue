@@ -1,15 +1,17 @@
 <template>
 
-    <div class="w-full pt-9 pb-7 px-5">
+    <div class="w-full max-w-[800px] mx-auto pt-9 pb-7 px-5">
         <img src="/logo.svg" alt="Logo da woovi" class="block mx-auto mb-10" />
         <h1 class="text-2xl text-center font-extrabold text-gray-300 font-nunito mb-8">João, como você quer pagar?</h1>
 
         <option-pix
             label="Pix"
+            name="paymentmethod"
             :times="1"
             :value="formatCurrency(30500)"
             :input-value="1"
             v-model="selectedOption"
+            @selected="handerSelectOption"
             class="rounded-[10px]">
                 <template #bottom>
                     <p class="font-nunito font-semibold text-base leading-5 text-green-300">Ganhe <b>3%</b> de Cashback</p>
@@ -29,10 +31,12 @@
                 :key="index">
                     <option-pix
                         v-model="selectedOption"
+                        name="paymentmethod"
                         :label="option?.label"
                         :times="option.times"
                         :value="formatCurrency(option.value)"
                         :input-value="option.times"
+                        @selected="handerSelectOption"
                         :class="{ 
                             'rounded-t-[10px] border-b-0': index == 0,
                             'border-b-0': index > 0 && index < otherPixOptions.length - 1,
@@ -67,6 +71,7 @@
 
 <script setup lang="ts">
 
+import { useRouter } from 'vue-router'
 import { shallowRef } from 'vue'
 
 import Footer from '@/Components/Footer.vue'
@@ -78,6 +83,10 @@ import { formatCurrency } from '../Util/formats'
 const selectedOption = shallowRef(null)
 
 
+const router = useRouter()
 
+function handerSelectOption() {
+    router.push({ name: 'pix-qrcode.pix' })
+}
 
 </script>

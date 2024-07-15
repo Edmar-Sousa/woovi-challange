@@ -57,7 +57,6 @@ const props = defineProps({
         required: true,
     },
     inputValue: {
-        type: String,
         required: true,
     },
 })
@@ -65,9 +64,11 @@ const props = defineProps({
 
 const model = defineModel()
 
+const emit = defineEmits([ 'selected' ])
 
 function handlerSelectOption() {
     model.value = props.inputValue
+    emit('selected')
 }
 
 </script>

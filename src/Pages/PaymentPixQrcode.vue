@@ -1,10 +1,9 @@
 <template>
 
-    <div class="w-full pt-9 pb-7 px-5">
+    <div class="w-full pt-9 pb-7 px-5 max-w-[800px] mx-auto">
         <img src="/logo.svg" alt="Logo da woovi" class="block mx-auto mb-10" />
         
-        <pix-generate v-if="false"></pix-generate>
-        <credit-card v-else />
+        <router-view />
 
         <div class="mt-5 pb-5 border-b-2 border-b-gray-100"> 
             <timeline :value="timelineData" :pt="{
@@ -69,6 +68,9 @@
 
 <script setup lang="ts">
 
+import { useRoute } from 'vue-router'
+import { onMounted, ref, watch } from 'vue'
+
 import Timeline from 'primevue/timeline'
 
 
@@ -79,16 +81,55 @@ import AccordionContent from 'primevue/accordioncontent'
 
 import Footer from '@/Components/Footer.vue'
 
-import PixGenerate from './Partials/PixGenerate.vue'
-import CreditCard from './Partials/CreditCard.vue'
 
 import { formatCurrency } from '../Util/formats'
 
 
-const timelineData = [
-    { title: '1ª entrada no Pix', value: 15300, activite: 'completed' },
-    { title: '2ª no cartão', value: 15300, activite: 'activite' }
-]
+interface TimelineType {
+    title: string
+    value: number
+    routername: string
+    activite?: string
+}
+
+const timelineData = ref<Array<TimelineType>>([
+    { title: '1ª entrada no Pix', value: 15300, routername: 'pix-qrcode.pix', activite: '' },
+    { title: '2ª no cartão', value: 15300, routername: 'pix-qrcode.credit-card', activite: '' }
+])
+
+
+
+onMounted(() => {
+    handlerChangeStep()
+})
+
+const route = useRoute()
+
+
+watch(route, () => handlerChangeStep())
+
+
+function handlerChangeStep() {
+    const amountRoute = route.name
+
+    const indexRouteActivite = timelineData.value.findIndex(event => event.routername == amountRoute)
+
+    const timelineUpdated = timelineData.value.map((eventTimeline, index) => {
+        if (index == indexRouteActivite)
+            eventTimeline.activite = 'activite'
+
+        else if (index < indexRouteActivite)
+            eventTimeline.activite = 'completed'
+        
+        else
+            eventTimeline.activite = ''
+
+        return eventTimeline
+    })
+
+    timelineData.value = timelineUpdated
+}
+
 
 </script>
 
