@@ -62,3 +62,15 @@ span.timeline-event-checked::after {
     top: 20%;
     left: 20%;
 }
+
+
+.float-label-input::placeholder {
+    color: #0000;
+}
+
+
+.float-label-input:focus+label,
+.float-label-input:not(:placeholder-shown)+label {
+    top: -16px;
+    background: #fff;
+}

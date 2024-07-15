@@ -2,29 +2,9 @@
 
     <div class="w-full pt-9 pb-7 px-5">
         <img src="/logo.svg" alt="Logo da woovi" class="block mx-auto mb-10" />
-        <h1 class="text-2xl text-center font-extrabold text-gray-300 font-nunito mb-8">
-            João, pague a entrada de <br />
-            R$ 15.300,00 pelo Pix
-        </h1>
-
-        <div class="text-center">
-            <div class="border-2 inline-block border-green-300 rounded-[10px] p-[10px]">
-                <img
-                    src="/qrcode.png" />
-            </div>
-
-            <button class="inline-flex mt-5 items-center gap-3 bg-blue-300 px-5 py-2 font-nunito font-semibold text-lg text-white rounded-lg">
-                Clique para copiar QR CODE
-                <img 
-                    src="/paper.svg" 
-                    alt="Icone de copiar" />
-            </button>
-
-            <p class="font-nunito text-lg font-semibold text-gray-100 mt-5">
-                Prazo de pagamento: <br />
-                <b class="text-gray-300">15/12/2021 - 08:17</b>
-            </p>
-        </div>
+        
+        <pix-generate v-if="false"></pix-generate>
+        <credit-card v-else />
 
         <div class="mt-5 pb-5 border-b-2 border-b-gray-100"> 
             <timeline :value="timelineData" :pt="{
@@ -98,6 +78,9 @@ import AccordionHeader from 'primevue/accordionheader'
 import AccordionContent from 'primevue/accordioncontent'
 
 import Footer from '@/Components/Footer.vue'
+
+import PixGenerate from './Partials/PixGenerate.vue'
+import CreditCard from './Partials/CreditCard.vue'
 
 import { formatCurrency } from '../Util/formats'
 
