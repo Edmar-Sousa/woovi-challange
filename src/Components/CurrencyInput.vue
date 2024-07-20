@@ -12,10 +12,7 @@
         
         <label 
             :for="id"
-            class="font-semibold font-nunito text-gray-300 text-lg absolute top-5 left-4 duration-500 px-1 pointer-events-none"
-            :class="{
-                '-top-4 bg-white': isFloatingLabel,
-            }">
+            class="font-semibold font-nunito text-gray-300 text-lg absolute top-5 left-4 duration-500 px-1 pointer-events-none">
                 {{ placeholder }}
         </label>
     </float-label>
@@ -25,7 +22,7 @@
 
 <script setup lang="ts">
 
-import { computed, shallowRef, ref } from 'vue'
+import { ref } from 'vue'
 
 import FloatLabel from 'primevue/floatlabel'
 
@@ -37,11 +34,6 @@ defineProps([
 
 
 const model = ref<string|null>()
-const state = shallowRef(false)
-
-
-const isFloatingLabel = computed(() => state.value)
-
 
 
 function handleFocus() {
