@@ -28,6 +28,8 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
+import { usePaymentStore } from '../Store/PaymentStore'
+
 import CurrencyInput from '@/Components/CurrencyInput.vue'
 
 import Footer from '@/Components/Footer.vue'
@@ -35,13 +37,18 @@ import Footer from '@/Components/Footer.vue'
 
 const paymentValue = ref<null | number>(null)
 
+const paymentStore = usePaymentStore()
+
 
 const router = useRouter()
 function handlerPaymentValue() {
     if (!paymentValue.value)
         return
 
-    router.push({ name: 'payment-method' })
+    paymentStore.setPaymentValue(paymentValue.value)
+    router.push({ 
+        name: 'payment-method'
+    })
 }
 
 </script>
