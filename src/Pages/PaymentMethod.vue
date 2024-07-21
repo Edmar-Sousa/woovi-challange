@@ -14,13 +14,13 @@
             @selected="handerSelectOption"
             class="rounded-[10px]">
                 <template #bottom>
-                    <p class="font-nunito font-semibold text-base leading-5 text-green-300">Ganhe <b>3%</b> de Cashback</p>
+                    <p class="font-nunito font-semibold text-base leading-5 text-green-300">
+                        Ganhe <b>3%</b> de Cashback
+                    </p>
 
-                    <div class="relative h-10 mt-[10px] leading-10 text-white text-base bg-contain bg-no-repeat w-full rounded-md pl-3 bg-blue-300">
+                    <blue-flag :class="{ '!text-green-200': selectedOption == 1 }">
                         🤑 <b>{{ formatCurrency(300) }}</b> de volta no seu Pix na hora
-
-                        <img src="/triangle.svg" class="absolute -right-[2px] top-[2px]" />
-                    </div>
+                    </blue-flag>
                 </template>
         </option-pix>
 
@@ -30,13 +30,13 @@
                 v-for="(option, index) in otherPixOptions"
                 :key="index">
                     <option-pix
-                        v-model="selectedOption"
                         name="paymentmethod"
+                        v-model="selectedOption"
+                        @selected="handerSelectOption"
                         :label="option?.label"
                         :times="option.times"
                         :value="formatCurrency(option.value)"
                         :input-value="option.times"
-                        @selected="handerSelectOption"
                         :class="{ 
                             'rounded-t-[10px] border-b-0': index == 0,
                             'border-b-0': index > 0 && index < otherPixOptions.length - 1,
@@ -47,15 +47,11 @@
                                     Total: {{ formatCurrency(option.times * option.value) }}
                                 </p>
 
-                                <div
+                                <blue-flag 
                                     v-show="option.discount" 
-                                    class="relative h-10 mt-[10px] leading-10 text-white text-base w-full rounded-md pl-3 bg-blue-300">
-                                        <p>
-                                            <b>{{ option.discount }} de juros:</b>
-                                            {{ option.bottom }}
-                                        </p>
-                                        <img src="/triangle.svg" class="absolute -right-[2px] top-[2px]" />
-                                </div>
+                                    :class="{ 'text-green-200': selectedOption == option.times }">
+                                        <b>{{ option.discount }} de juros:</b> {{ option.bottom }}
+                                </blue-flag>
                             </template>
                     </option-pix>
             </li>
@@ -75,11 +71,13 @@ import { shallowRef } from 'vue'
 
 import Footer from '@/Components/Footer.vue'
 import OptionPix from '@/Components/OptionPix.vue'
+import BlueFlag from '@/Components/BlueFlag.vue'
+
 import { otherPixOptions } from '../Mocks/OtherPixOptions'
 
 import { formatCurrency } from '../Util/formats'
 
-const selectedOption = shallowRef(null)
+const selectedOption = shallowRef(1)
 
 
 const router = useRouter()
