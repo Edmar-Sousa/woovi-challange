@@ -27,13 +27,17 @@ import { ref } from 'vue'
 import FloatLabel from 'primevue/floatlabel'
 
 
-defineProps([
+const props = defineProps([
     'id',
     'placeholder',
+    'modelValue'
 ])
 
+const emit = defineEmits([
+    'update:modelValue'
+])
 
-const model = ref<string|null>()
+const model = ref<string|null>(props.modelValue ? formatNumber(props.modelValue) : '')
 
 
 function handleFocus() {
@@ -45,12 +49,20 @@ function handleFocus() {
 }
 
 
+function formatNumber(value: number) {
+    return Intl.NumberFormat('pt-BR', { currency: 'BRL', style: 'currency' }).format(value)
+}
+
+
 function handleBlur() {
+    if (!model.value)
+        return 
 
-    const value = Number(model.value?.replace(',', '.'))
 
-    if (model.value)
-        model.value = Intl.NumberFormat('pt-BR', { currency: 'BRL', style: 'currency' }).format(value)
+    const value = parseFloat(model.value?.replace(',', '.'))
+    model.value = formatNumber(value)
+
+    emit('update:modelValue', value)
 }
 
 </script>
