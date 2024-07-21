@@ -17,8 +17,10 @@
             </button>
         </form>
 
-    </div>
 
+    </div>
+    
+    <Footer />
 </template>
 
 <script lang="ts" setup>
@@ -27,6 +29,8 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 import CurrencyInput from '@/Components/CurrencyInput.vue'
+
+import Footer from '@/Components/Footer.vue'
 
 
 const paymentValue = ref<null | number>(null)

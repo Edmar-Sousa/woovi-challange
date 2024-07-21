@@ -1,6 +1,6 @@
 <template>
 
-    <float-label class="relative block">
+    <float-label class="relative block w-full">
         <input-mask
             type="text"
             :id="id"

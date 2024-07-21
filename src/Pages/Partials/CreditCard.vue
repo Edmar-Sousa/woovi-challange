@@ -22,7 +22,7 @@
             id="cardnumber"
             mask="9999-9999-9999-9999" />
 
-        <div class="flex gap-4">
+        <div class="flex gap-4 w-full">
             <input-mask 
                 class="mt-7"
                 placeholder="Vencimento"

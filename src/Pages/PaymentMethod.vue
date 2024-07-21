@@ -57,7 +57,7 @@
             </li>
         </ul>
 
-        <Footer />        
+        <Footer />
     </div>
 
 
