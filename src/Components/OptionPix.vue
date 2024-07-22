@@ -16,7 +16,7 @@
                 <p class="text-2xl font-nunito text-gray-300 font-normal">
                     <b class="font-extrabold" v-show="times">{{ times }}x</b>
 
-                    {{ value }}
+                    {{ formatCurrency(value) }}
                 </p>
 
                 <input
@@ -35,6 +35,8 @@
 
 <script setup lang="ts">
 
+import { formatCurrency } from '../Util/formats'
+
 
 const props = defineProps({
     label: {
@@ -48,8 +50,13 @@ const props = defineProps({
     },
 
     value: {
-        type: String,
-        required: false,
+        type: Number,
+        required: true,
+    },
+
+    interest: {
+        type: Number,
+        default: 0,
     },
 
     name: {
@@ -68,7 +75,12 @@ const emit = defineEmits([ 'selected' ])
 
 function handlerSelectOption() {
     model.value = props.inputValue
-    emit('selected')
+
+    emit('selected', {
+        times: props.times,
+        value: props.value,
+        interest: props.interest,
+    })
 }
 
 </script>

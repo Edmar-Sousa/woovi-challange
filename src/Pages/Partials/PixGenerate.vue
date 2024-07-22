@@ -2,7 +2,7 @@
 
     <h1 class="text-2xl text-center font-extrabold text-gray-300 font-nunito mb-8">
         João, pague a entrada de <br />
-        R$ 15.300,00 pelo Pix
+        {{ formatCurrency(paymentStore.total) }} pelo Pix
     </h1>
 
     <div class="flex flex-col items-center">
@@ -23,7 +23,9 @@
 
         <p class="font-nunito text-lg font-semibold text-gray-100 mt-5">
             Prazo de pagamento: <br />
-            <b class="text-gray-300">15/12/2021 - 08:17</b>
+            <b class="text-gray-300">
+                15/12/2021 - 08:17
+            </b>
         </p>
     </div>
 
@@ -33,6 +35,12 @@
 
 
 import { useRouter } from 'vue-router'
+
+import { usePaymentStore } from '../../Store/PaymentStore'
+import { formatCurrency } from '../../Util/formats';
+
+
+const paymentStore = usePaymentStore()
 
 const router = useRouter()
 

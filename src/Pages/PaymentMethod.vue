@@ -8,7 +8,7 @@
             label="Pix"
             name="paymentmethod"
             :times="1"
-            :value="formatCurrency(30500)"
+            :value="paymentStore.value"
             :input-value="1"
             v-model="selectedOption"
             @selected="handerSelectOption"
@@ -19,7 +19,7 @@
                     </p>
 
                     <blue-flag :class="{ '!text-green-200': selectedOption == 1 }">
-                        🤑 <b>{{ formatCurrency(300) }}</b> de volta no seu Pix na hora
+                        🤑 <b>{{ formatCurrency(calculateCashback(paymentStore.value)) }}</b> de volta no seu Pix na hora
                     </blue-flag>
                 </template>
         </option-pix>
@@ -35,7 +35,8 @@
                         @selected="handerSelectOption"
                         :label="option?.label"
                         :times="option.times"
-                        :value="formatCurrency(option.value)"
+                        :value="option.value"
+                        :interest="option.interest"
                         :input-value="option.times"
                         :class="{ 
                             'rounded-t-[10px] border-b-0': index == 0,
@@ -73,17 +74,33 @@ import Footer from '@/Components/Footer.vue'
 import OptionPix from '@/Components/OptionPix.vue'
 import BlueFlag from '@/Components/BlueFlag.vue'
 
-import { otherPixOptions } from '../Mocks/OtherPixOptions'
+import { usePaymentStore } from '../Store/PaymentStore'
 
+import { calculatePixOptions } from '../Mocks/OtherPixOptions'
 import { formatCurrency } from '../Util/formats'
+import { InstallmentType } from '../Interfaces/Installment'
+
 
 const selectedOption = shallowRef(1)
 
-
+const paymentStore = usePaymentStore()
 const router = useRouter()
 
-function handerSelectOption() {
-    router.push({ name: 'pix-qrcode.pix' })
+
+const otherPixOptions = calculatePixOptions(paymentStore.value)
+
+
+function handerSelectOption(installment: InstallmentType) {
+    paymentStore.setInstallment(installment)
+
+    router.push({ 
+        name: 'pix-qrcode.pix'
+    })
+}
+
+
+function calculateCashback(value: number) {
+    return value * 0.03
 }
 
 </script>

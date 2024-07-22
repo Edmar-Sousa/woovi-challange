@@ -32,8 +32,13 @@
 
 
         <div class="w-full flex items-center justify-between mt-7 pb-5 border-b-2 border-b-gray-100">
-            <p class="text-lg font-nunito text-gray-300 font-semibold">CET: 0,5%</p>
-            <p class="text-lg font-nunito text-gray-300 font-semibold">Total: R$ 30.600,00</p>
+            <p class="text-lg font-nunito text-gray-300 font-semibold">
+                CET: {{ paymentStore.cet }}%
+            </p>
+
+            <p class="text-lg font-nunito text-gray-300 font-semibold">
+                Total: {{ formatCurrency(paymentStore.total) }}
+            </p>
         </div>
 
         <accordion value="1">
@@ -83,19 +88,17 @@ import Footer from '@/Components/Footer.vue'
 
 
 import { formatCurrency } from '../Util/formats'
+import { getOptionsTimeline } from '../Util/timelineOptions'
+import { usePaymentStore } from '../Store/PaymentStore'
+import { TimelineType } from '../Interfaces/Timeline'
 
 
-interface TimelineType {
-    title: string
-    value: number
-    routername: string
-    activite?: string
-}
 
-const timelineData = ref<Array<TimelineType>>([
-    { title: '1ª entrada no Pix', value: 15300, routername: 'pix-qrcode.pix', activite: '' },
-    { title: '2ª no cartão', value: 15300, routername: 'pix-qrcode.credit-card', activite: '' }
-])
+const paymentStore = usePaymentStore()
+
+const timelineData = ref<Array<TimelineType>>(
+    getOptionsTimeline(paymentStore.installment, paymentStore.total)
+)
 
 
 

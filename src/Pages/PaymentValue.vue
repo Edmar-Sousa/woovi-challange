@@ -6,9 +6,14 @@
 
         <form action="#" method="POST" @submit.prevent>
 
+            <input-text
+                placeholder="Nome"
+                id="username"
+                v-model="paymentData.username" />
+
             <currency-input
                 placeholder="Valor que deseja pagar"
-                v-model="paymentValue" />
+                v-model="paymentData.paymentValue" />
 
             <button
                 class="block w-[250px] h-[65px] mx-auto mt-4 rounded-[10px] font-nunito px-5 bg-green-300 text-bold text-white text-lg font-semibold outline-none focus:ring focus:ring-green-300"
@@ -35,17 +40,20 @@ import CurrencyInput from '@/Components/CurrencyInput.vue'
 import Footer from '@/Components/Footer.vue'
 
 
-const paymentValue = ref<null | number>(null)
+const paymentData = ref({
+    paymentValue: null,
+    username: null,
+})
 
 const paymentStore = usePaymentStore()
 
 
 const router = useRouter()
 function handlerPaymentValue() {
-    if (!paymentValue.value)
+    if (!paymentData.value.paymentValue && paymentData.value.username)
         return
 
-    paymentStore.setPaymentValue(paymentValue.value)
+    paymentStore.setPaymentData(paymentData.value)
     router.push({ 
         name: 'payment-method'
     })

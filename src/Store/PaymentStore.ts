@@ -1,16 +1,46 @@
 import { defineStore } from 'pinia'
 
+import { InstallmentType, PaymentDataType } from '../Interfaces/Installment'
 
 
-export const usePaymentStore = defineStore('paymentStore', {
-    state: () => ({
-        paymentValue: 0,
+
+interface PaymentStoreType {
+    value: number | null
+    username: string | null
+
+    installment: InstallmentType,
+}
+
+
+export const usePaymentStore = defineStore({
+    id: 'paymentStore',
+
+    state: (): PaymentStoreType => ({
+        value: 0,
+        username: null,
+
+        installment: {
+            interest: 0,
+            times: 0,
+            value: 0,
+        }
     }),
 
+    getters: {
+        total: state => state.installment.times * state.installment.value,
+        cet: state => (state.installment.interest - 1).toFixed(2),
+        timesCreditCard: state => state.installment.times - 1,
+        totalCreditCard: state => state.installment.value * (state.installment.times - 1)
+    },
 
     actions: {
-        setPaymentValue(value: number) {
-            this.paymentValue = value
+        setPaymentData(data: PaymentDataType) {
+            this.value = data.paymentValue
+            this.username = data.username
+        },
+
+        setInstallment(installment: InstallmentType) {
+            this.installment = installment
         }
     }
 })

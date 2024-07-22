@@ -1,7 +1,7 @@
 <template>
 
     <h1 class="text-2xl text-center font-extrabold text-gray-300 font-nunito mb-8">
-        João, pague o restante em 1x no <br />
+        João, pague o restante em {{ paymentStore.timesCreditCard }}x no <br />
         cartão
     </h1>
 
@@ -40,6 +40,11 @@
             class="mt-7"
             :options="options"
             placeholder="Parcelas" />
+
+        <button
+            class="block w-[250px] h-[65px] mx-auto mt-4 rounded-[10px] font-nunito px-5 bg-green-300 text-bold text-white text-lg font-semibold outline-none focus:ring focus:ring-green-300">
+                Continuar
+        </button>
     </form>
 
 </template>
@@ -53,18 +58,12 @@ import InputMask from '@/Components/InputMask.vue'
 import SelectInput from '@/Components/SelectInput.vue'
 
 
-const options = [
-    { label: '1x de R$ 15.300,00', value: 1 },
-    { label: '2x de R$ 15.300,00', value: 2 },
-    { label: '3x de R$ 15.300,00', value: 3 },
-    { label: '4x de R$ 15.300,00', value: 4 },
-    { label: '5x de R$ 15.300,00', value: 5 },
-    { label: '6x de R$ 15.300,00', value: 6 },
-    { label: '7x de R$ 15.300,00', value: 7 },
-    { label: '8x de R$ 15.300,00', value: 8 },
-    { label: '9x de R$ 15.300,00', value: 9 },
-    { label: '10x de R$ 15.300,00', value: 10 },
-]
+import { usePaymentStore } from '../../Store/PaymentStore'
+import { creditCardOptions } from '../../Util/creditCardOptins'
+
+const paymentStore = usePaymentStore()
+
+const options = creditCardOptions(paymentStore.totalCreditCard)
 
 </script>
 
