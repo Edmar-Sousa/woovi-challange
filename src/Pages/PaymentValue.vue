@@ -41,8 +41,8 @@ import Footer from '@/Components/Footer.vue'
 
 
 const paymentData = ref({
-    paymentValue: null,
-    username: null,
+    paymentValue: 0,
+    username: '',
 })
 
 const paymentStore = usePaymentStore()
@@ -50,13 +50,13 @@ const paymentStore = usePaymentStore()
 
 const router = useRouter()
 function handlerPaymentValue() {
-    if (!paymentData.value.paymentValue && paymentData.value.username)
-        return
 
     paymentStore.setPaymentData(paymentData.value)
+    
     router.push({ 
         name: 'payment-method'
     })
+
 }
 
 </script>

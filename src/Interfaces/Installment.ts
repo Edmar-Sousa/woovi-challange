@@ -5,6 +5,6 @@ export interface InstallmentType {
 }
 
 export interface PaymentDataType {
-    paymentValue: number | null
-    username: string | null
+    paymentValue: number
+    username: string
 }

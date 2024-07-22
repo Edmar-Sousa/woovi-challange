@@ -5,8 +5,8 @@ import { InstallmentType, PaymentDataType } from '../Interfaces/Installment'
 
 
 interface PaymentStoreType {
-    value: number | null
-    username: string | null
+    value: number
+    username: string
 
     installment: InstallmentType,
 }
@@ -17,7 +17,7 @@ export const usePaymentStore = defineStore({
 
     state: (): PaymentStoreType => ({
         value: 0,
-        username: null,
+        username: '',
 
         installment: {
             interest: 0,
