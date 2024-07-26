@@ -28,6 +28,7 @@
 
 <script setup lang="ts">
 
+import FloatLabel from 'primevue/floatlabel'
 import Select from 'primevue/select'
 
 
