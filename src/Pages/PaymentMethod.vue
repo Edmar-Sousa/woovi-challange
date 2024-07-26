@@ -2,7 +2,9 @@
 
     <div class="w-full max-w-[800px] mx-auto pt-9 pb-7 px-5">
         <img src="/logo.svg" alt="Logo da woovi" class="block mx-auto mb-10" />
-        <h1 class="text-2xl text-center font-extrabold text-gray-300 font-nunito mb-8">João, como você quer pagar?</h1>
+        <h1 class="text-2xl text-center font-extrabold text-gray-300 font-nunito mb-8">
+            {{ paymentStore.firstname }}, como você quer pagar?
+        </h1>
 
         <option-pix
             label="Pix"

@@ -30,7 +30,8 @@ export const usePaymentStore = defineStore({
         total: state => state.installment.times * state.installment.value,
         cet: state => (state.installment.interest - 1).toFixed(2),
         timesCreditCard: state => state.installment.times - 1,
-        totalCreditCard: state => state.installment.value * (state.installment.times - 1)
+        totalCreditCard: state => state.installment.value * (state.installment.times - 1),
+        firstname: state => state.username.split(' ')[0],
     },
 
     actions: {

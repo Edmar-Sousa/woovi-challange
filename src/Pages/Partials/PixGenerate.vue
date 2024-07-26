@@ -1,7 +1,7 @@
 <template>
 
     <h1 class="text-2xl text-center font-extrabold text-gray-300 font-nunito mb-8">
-        João, pague a entrada de <br />
+        {{ paymentStore.firstname }}, pague a entrada de <br />
         {{ formatCurrency(paymentStore.total) }} pelo Pix
     </h1>
 
