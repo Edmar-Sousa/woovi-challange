@@ -1,6 +1,6 @@
 <template>
 
-    <float-label class="relative block float-container">
+    <float-label class="relative block float-container" v-bind="$attrs">
         <input
             type="text"
             :id="id"
@@ -17,6 +17,11 @@
         </label>
     </float-label>
 
+    <small 
+        v-if="error"
+        class="font-nunito text-red-600 text-base mt-1">
+            {{ error }}
+    </small>
 
 </template>
 
@@ -29,8 +34,9 @@ import FloatLabel from 'primevue/floatlabel'
 
 const props = defineProps([
     'id',
+    'error',
     'placeholder',
-    'modelValue'
+    'modelValue',
 ])
 
 const emit = defineEmits([

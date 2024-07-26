@@ -9,11 +9,14 @@
             <input-text
                 placeholder="Nome"
                 id="username"
-                v-model="paymentData.username" />
+                v-model="paymentData.username"
+                :error="v$.username.$errors[0]?.$message" />
 
             <currency-input
                 placeholder="Valor que deseja pagar"
-                v-model="paymentData.paymentValue" />
+                v-model="paymentData.paymentValue"
+                class="mt-7"
+                :error="v$.username.$errors[0]?.$message" />
 
             <button
                 class="block w-[250px] h-[65px] mx-auto mt-4 rounded-[10px] font-nunito px-5 bg-green-300 text-bold text-white text-lg font-semibold outline-none focus:ring focus:ring-green-300"
@@ -21,7 +24,6 @@
                     Continuar
             </button>
         </form>
-
 
     </div>
     
@@ -33,12 +35,16 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
+import { useVuelidate } from '@vuelidate/core'
+import { helpers, required } from '@vuelidate/validators'
+
 import { usePaymentStore } from '../Store/PaymentStore'
 
+import InputText from '@/Components/TextInput.vue'
 import CurrencyInput from '@/Components/CurrencyInput.vue'
 
 import Footer from '@/Components/Footer.vue'
-
+import { error } from 'console'
 
 const paymentData = ref({
     paymentValue: 0,
@@ -48,8 +54,26 @@ const paymentData = ref({
 const paymentStore = usePaymentStore()
 
 
+const rules = {
+    paymentValue: {
+        required: helpers.withMessage('O campo é obrigatorio', required),
+    },
+    username: {
+        required: helpers.withMessage('O campo é obrigatorio', required),
+    },
+}
+
+
+const v$ = useVuelidate(rules, paymentData)
+
 const router = useRouter()
 function handlerPaymentValue() {
+
+    v$.value.$validate()
+
+    if (v$.value.$error)
+        return
+
 
     paymentStore.setPaymentData(paymentData.value)
     
