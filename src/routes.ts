@@ -5,6 +5,8 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 const routes: Array<RouteRecordRaw> = [
     { path: '/', component: () => import('@/Pages/PaymentValue.vue'), name: 'payment-value' },
     { path: '/method', component: () => import('@/Pages/PaymentMethod.vue'), name: 'payment-method' },
+    { path: '/success', component: () => import('@/Pages/PaymentSucess.vue'), name: 'payment-success' },
+
     {
         path: '/pix',
         component: () => import('@/Pages/PaymentPixQrcode.vue'),

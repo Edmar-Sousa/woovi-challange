@@ -45,7 +45,11 @@ const paymentStore = usePaymentStore()
 const router = useRouter()
 
 function handlerCopyPixCode() {
-    router.push({ name: 'pix-qrcode.credit-card' })
+    if (paymentStore.installment.times == 1) 
+        router.push({ name: 'payment-success' })
+
+    else
+        router.push({ name: 'pix-qrcode.credit-card' })
 }
 
 </script>

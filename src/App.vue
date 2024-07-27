@@ -9,4 +9,14 @@
 <script setup lang="ts">
 
 
+import { useRouter } from 'vue-router'
+
+
+const router = useRouter()
+
+
+window.addEventListener('load', () => {
+    router.push({ name: 'payment-value' })
+})
+
 </script>

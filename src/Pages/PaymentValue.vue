@@ -44,7 +44,6 @@ import InputText from '@/Components/TextInput.vue'
 import CurrencyInput from '@/Components/CurrencyInput.vue'
 
 import Footer from '@/Components/Footer.vue'
-import { error } from 'console'
 
 const paymentData = ref({
     paymentValue: 0,
